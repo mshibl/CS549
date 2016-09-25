@@ -1,0 +1,26 @@
+---
+title: "CS549 Assignment#4"
+author: "Mohamed_Shibl"
+date: "Sep 25, 2016"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Obtaining R_Squared
+Running a multiple linear regression example with a model where Y = Ozone, X1 = Temp, X2 = Wind.
+This equation will provide us with the value of R_squared.
+
+In this case R_squared is equal 0.5814. Which is a relatively low value meaning that knowing the value of wind and tempreature does not provide us with a certain value of ozone.
+
+```{r}
+# sets the working directory
+setwd("/Users/Shibl/Google Drive/Herguan University/2016 Fall/CS549 - Big Data Analytics/Assignment 1")
+# Reads the data into R 
+mydata<-read.csv("Ozone_data.csv")
+# Runs a Regression model and gives the summary output
+summary(lm(Ozone ~ Temp+Wind, data = mydata))
+```
+
