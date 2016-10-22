@@ -17,10 +17,49 @@ In this case R_squared is equal 0.5814. Which is a relatively low value meaning 
 
 ```{r}
 # sets the working directory
-setwd("/Users/Shibl/Google Drive/Herguan University/2016 Fall/CS549 - Big Data Analytics/Assignment 1")
+setwd("/Users/Shibl/Google Drive/Herguan University/2016 Fall/CS549 - Big Data Analytics/CS549 Assignments/Assignment1_ozone_data")
 # Reads the data into R 
 mydata<-read.csv("Ozone_data.csv")
 # Runs a Regression model and gives the summary output
 summary(lm(Ozone ~ Temp+Wind, data = mydata))
 ```
 
+
+## Calculating Correlation
+Running the code below, will provide us with the correlation between each 2 columns from our data.
+Judgung by the numbers produced, we can see that there is a strong negative correlation between Ozone & Wind (-0.612496576). We can also see that there a strong positive correlation between Ozone and Temp (0.698541410)
+
+```{r}
+# draws a correlation plot
+pairs(mydata)
+# calculates the Pearson's correlation coefficient 
+cor(mydata)
+```
+
+## Calculating Confidence Interval
+Running the code below, will provide us with the value of the Ozone with a confidince of 95%.
+The values generated from this equation should be within a reasonable range in order for the data to be useful.
+
+```{r}
+model1=lm(Ozone ~ Temp+Wind+Temp*Wind, data = mydata)
+confint(model1,conf.level=0.95)
+```
+
+## Determining the Statistical Inference of population
+Running the code below, will tell us if the sample used in our calculations is considered a fair represntative of the whole population.
+
+```{r}
+t.test(mydata,conf.level=0.90)
+```
+
+## Hypothesis Testing
+Running the code below we test our hypothesis about the data provided, we must provide a null hypothesis and an alternative hypotheis. We will try to disprove the null hypothesis.
+
+After running the code below we can see that we reject the null hypothesis, because the value of p=0.006919 is less than 50.
+
+```{r}
+# just separating Ozone data from the data sheet
+newdata <- mydata[c(1)]
+# Applying T test
+t.test(newdata,alternative = "less", mu= 50)
+```
